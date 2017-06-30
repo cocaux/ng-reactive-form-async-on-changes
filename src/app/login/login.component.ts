@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { patternValidator } from 'app/shared/pattern-validator';
 
@@ -7,7 +7,7 @@ import { patternValidator } from 'app/shared/pattern-validator';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnChanges {
 
   @Input() email: string;
   @Input() password: string;
@@ -15,6 +15,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+  }
+
+  ngOnChanges() {
+    if (this.loginForm) {
+      this.loginForm.setValue({ email: this.email, password: this.password });
+    }
   }
 
   private createForm() {
