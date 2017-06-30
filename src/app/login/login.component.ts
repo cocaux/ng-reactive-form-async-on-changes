@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { patternValidator } from 'app/shared/pattern-validator';
 
@@ -9,6 +9,8 @@ import { patternValidator } from 'app/shared/pattern-validator';
 })
 export class LoginComponent implements OnInit {
 
+  @Input() email: string;
+  @Input() password: string;
   loginForm: FormGroup;
 
   ngOnInit() {
@@ -18,8 +20,8 @@ export class LoginComponent implements OnInit {
   private createForm() {
     this.loginForm = new FormGroup({
       // tslint:disable-next-line
-      email: new FormControl('', [Validators.required, patternValidator(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
-      password: new FormControl('', Validators.required),
+      email: new FormControl(this.email, [Validators.required, patternValidator(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]),
+      password: new FormControl(this.password, Validators.required),
     });
   }
 
